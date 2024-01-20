@@ -44,14 +44,12 @@ const addNetflixVideoController = async (req, res) => {
     fs.renameSync(videoFile.path, savedFilePath);
     
     // video file link
-    const dynamicUrl = `${baseUrl}/${uniqueFileName}`;
-    
-
+    const videoLink = `${baseUrl}/${uniqueFileName}`;
 
     const newVideo = new NetflixVideo({
         videoTitle: videoTitle,
         description: description,
-        videoLink: dynamicUrl
+        videoLink: videoLink
     });
 
     await newVideo.save();
