@@ -1,10 +1,22 @@
 const express = require('express')
 const connectToMongoDb = require('./config/mongodb')
-const NetflixVideo = require('./models/netflix/NetflixVideo')
 const addNetflixVideoController = require("./controllers/netflixControllers/addNetflixVideoController")
+const multipartyMiddleware = require('./middlewares/videoFileUploadMiddleware')
+const multiparty = require('connect-multiparty');
+
+
+// Use connect-multiparty middleware
+// const multipartyMiddleware = multiparty({
+//     uploadDir: './public',
+// });
 
 const app = express()
 app.use(express.json())
+// add middleware to parse form data instead of JSON
+app.use(express.urlencoded({ extended: true }));
+// use a static folder
+app.use(express.static('public'));
+
 
 const port = 3000
 
@@ -18,7 +30,7 @@ app.post('/about', (req, res) => {
     res.send('thank you')
 })
 
-app.post('/add-videos', addNetflixVideoController)
+app.post('/add-videos', multipartyMiddleware, addNetflixVideoController)
 
 
 

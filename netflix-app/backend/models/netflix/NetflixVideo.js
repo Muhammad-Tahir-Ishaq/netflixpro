@@ -1,12 +1,14 @@
-const mongoose =  require ('mongoose');
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const netflixVideoSchema = new Schema({
+    videoTitle: String,
     description: String,
-},{
-    timestamps: true, 
+    videoLink: String,
+}, {
+    timestamps: true,
 });
 
-const NetflixVideo = mongoose.model('posts', netflixVideoSchema);
+const NetflixVideo = mongoose.model('videos', netflixVideoSchema);
 
 module.exports = NetflixVideo
